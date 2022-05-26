@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <title>All Blogs</title>
+    <link rel="stylesheet" href="{% static 'css/articles/home.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <h1 class="text-center fs-1 blog-head">All Blogs</h1>
+    <div class="mw">
+        <form>
+            {{ form|crispy }}
+            <button class="btn btn-primary pd" type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock content %}

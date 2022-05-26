@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap');
+
+.blog-head{
+    font-family: 'Spline Sans Mono', monospace;
+    padding: 20px;
+}
+
+.mw{
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+.pd{
+    margin-top: 20px;
+}
