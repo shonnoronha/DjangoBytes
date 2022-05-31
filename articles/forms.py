@@ -11,7 +11,7 @@ class ArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
         self.helper.form_action = reverse_lazy('articles:home')
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.add_input(Submit('submit', 'Submit', css_class='btn-success'))
 
     class Meta:
         model = Article
