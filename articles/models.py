@@ -2,10 +2,10 @@ from django.db import models
 from django.conf import settings
 
 choices = (
+    ("computers", "computers"),
     ("science", "science"),
     ("technology", "technology"),
     ("math", "math"),
-    ("computers", "computers")
 )
 
 class Article(models.Model):

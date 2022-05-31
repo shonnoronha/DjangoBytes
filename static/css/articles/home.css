@@ -13,3 +13,11 @@
 .pd{
     margin-top: 20px;
 }
+
+input[type=radio]{
+    margin-top: 10px;
+}
+
+input[type=submit]{
+    margin-top: 10px;
+}

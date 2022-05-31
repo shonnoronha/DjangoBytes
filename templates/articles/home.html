@@ -10,9 +10,6 @@
 {% block content %}
     <h1 class="text-center fs-1 blog-head">All Blogs</h1>
     <div class="mw">
-        <form>
-            {{ form|crispy }}
-            <button class="btn btn-primary pd" type="submit">Submit</button>
-        </form>
+        {% crispy form %}
     </div>
 {% endblock content %}
