@@ -10,7 +10,10 @@ class ArticleForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.form_action = reverse_lazy('articles:home')
+        # self.helper.attrs['hx-post'] = reverse_lazy('articles:home')
+        # self.helper.attrs['hx-target'] = '.mw'
+        # self.helper.attrs['hx-swap'] = 'outerHTML'
+        self.helper.form_action = reverse_lazy('articles:create')
         self.helper.add_input(Submit('submit', 'Submit', css_class='btn-success'))
 
     class Meta:

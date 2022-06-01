@@ -7,7 +7,7 @@
     text-decoration-color: #04aa6d;
 }
 
-.mw{
+.main{
     margin-top: 20px;
     margin-left: 25%;
     margin-right: 25%;
@@ -28,9 +28,9 @@ input[type=submit]{
 }
 
 @media screen and (max-width: 635px) {
-    .mw{
-        margin-left: 15%;
-        margin-right: 15%;
+    .main{
+        margin-left: 0%;
+        margin-right: 0%;
         padding: 10px;
         border: 2px solid #04aa6d;
     }
