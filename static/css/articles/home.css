@@ -1,37 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Spline+Sans+Mono&display=swap');
-
-.blog-head{
-    font-family: 'Spline Sans Mono', monospace;
-    padding: 20px;
-    text-decoration: underline;
-    text-decoration-color: #04aa6d;
-}
-
-.mw{
-    margin-top: 20px;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding: 20px;
+.blogs{
     border: 2px solid #04aa6d;
+    max-width: 18rem;
+    display: inline-block;
 }
 
-.pd{
-    margin-top: 20px;
-}
-
-input[type=radio]{
-    margin-top: 10px;
-}
-
-input[type=submit]{
-    margin-top: 10px;
-}
-
-@media screen and (max-width: 635px) {
-    .mw{
-        margin-left: 15%;
-        margin-right: 15%;
-        padding: 10px;
-        border: 2px solid #04aa6d;
-    }
+.cstm-btn{
+    border-radius: 20px;
 }

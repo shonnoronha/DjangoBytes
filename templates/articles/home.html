@@ -1,1 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>All | Blogs</title>
+    <link rel="stylesheet" href="{% static 'css/articles/home.css' %}">
+{% endblock head %}
+
+{% block content %}
+{% for article in articles %}
+    <div class="card text-bg-dark mt-3 ms-3 blogs">
+        <div class="card-header">{{ article.name|title }}</div>
+        <div class="card-body">
+            <p class="card-text">
+                {{ article.description|slice:":75" }}
+                ...
+            </p>
+            <button type="button" class="btn btn-outline-info cstm-btn">Read More...</button>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock content %}
