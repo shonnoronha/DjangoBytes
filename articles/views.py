@@ -15,6 +15,9 @@ def home_view(request):
 def create_view(request):
     form = ArticleForm(request.POST or None)
     if form.is_valid():
+        article = form.save(commit=False)
+        article.author = request.user
+        article.save()
         messages.add_message(request, messages.SUCCESS, 'Article posted Succesfully!')
         return redirect('articles:home')
     context = { 'form': form }

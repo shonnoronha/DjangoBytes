@@ -21,7 +21,7 @@ class ArticleForm(forms.ModelForm):
         fields = ['name', 'description', 'content', 'category']
         widgets = {
             'name': forms.TextInput(attrs={'class':'mt-3 mb-3'}),
-            'description': forms.TextInput(attrs={'class':'mt-3 mb-3'}),
+            'description': forms.Textarea(attrs={'class':'mt-3 mb-3'}),
             'content': forms.Textarea(attrs={'class':'mt-3 mb-3'}),
             'category': forms.RadioSelect()
         }
