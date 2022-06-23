@@ -22,3 +22,9 @@ def create_view(request):
         return redirect('articles:home')
     context = { 'form': form }
     return render(request, 'articles/create.html', context)
+
+@login_required
+def detail_view(request, id):
+    qs = Article.objects.filter(id=id).first()
+    context = { 'article' : qs }
+    return render(request, 'articles/detail.html', context)

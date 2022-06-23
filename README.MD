@@ -1,5 +1,8 @@
 # TODOS
 - [ ] User Auth using Email link
+- [ ] Custom 404 page
+- [ ] Custom Auth Decorator (for login)
+- [ ] Admin Customisation
 ## Article
 - name 
 - author

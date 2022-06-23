@@ -15,7 +15,9 @@
                 {{ article.description|slice:":75" }}
                 ...
             </p>
-            <button type="button" class="btn btn-outline-info cstm-btn">Read More...</button>
+            <a href="{{ article.get_absolute_url }}">
+                <button type="button" class="btn btn-outline-info cstm-btn">Read More...</button>
+            </a>
         </div>
     </div>
 {% endfor %}
