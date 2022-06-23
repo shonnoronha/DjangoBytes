@@ -1,16 +1,13 @@
 {% extends 'base.html' %}
 
 {% block head %}
-    <title>{{ article.name }}</title>
+    <title>Loading...</title>
 {% endblock head %}
 
 {% block content %}
-    <h1 class="text-center pt-3">{{ article.name|title }}</h1>
-    <p class="ps-3 ms-3 fs-3">Description : </p>
-    <p class="ps-5 pe-5 m-3 fs-5">{{ article.description }}</p>
-    <p class="ps-3 ms-3 fs-3">Content : </p>
-    <p class="ps-5 pe-5 m-3 fs-5">{{ article.content }}</p>
-    <hr>
-    <p class="ps-3 fs-6">Last Edited : {{ article.date_edited|date:"l , dS F Y , h:i A [e]"}}</p> 
-    <p class="ps-3 fs-6">Date Added : {{ article.date_added|date:"l , dS F Y , h:i A [e]"}}</p>
+    <div hx-get="{{ hx_request_url }}" hx-trigger="revealed">
+        <div class="hx-indicator">
+            <h1 class="text-center">Loading...</h1>
+        </div>
+    </div>
 {% endblock content %}

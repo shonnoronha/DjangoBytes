@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
+from django.http import Http404
 
 from .forms import ArticleForm
 from .models import Article
@@ -24,7 +26,15 @@ def create_view(request):
     return render(request, 'articles/create.html', context)
 
 @login_required
-def detail_view(request, id):
-    qs = Article.objects.filter(id=id).first()
-    context = { 'article' : qs }
+def detail_view(request, slug):
+    hx_request_url = reverse('articles:hx-detail', kwargs={'slug':slug})
+    context = { 'hx_request_url' : hx_request_url }
     return render(request, 'articles/detail.html', context)
+
+@login_required
+def hx_detail_view(request, slug):
+    if not request.htmx:
+        return Http404
+    article = get_object_or_404(Article, slug=slug)
+    context = { 'article': article }
+    return render(request, 'articles/partials/detail.html', context)

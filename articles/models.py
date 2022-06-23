@@ -24,7 +24,7 @@ class Article(models.Model):
     category = models.CharField(max_length=50, choices=choices, default='computers')
 
     def get_absolute_url(self):
-        return reverse('articles:detail', kwargs={'id':self.id})
+        return reverse('articles:detail', kwargs={'slug':self.slug})
 
 def article_post_save(sender, instance, created, update_fields ,*args, **kwargs):
     if created:
