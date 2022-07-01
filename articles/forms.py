@@ -18,7 +18,25 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['name', 'description', 'content', 'category']
+        fields = ['name', 'description', 'content']
+        widgets = {
+            'name': forms.TextInput(attrs={'class':'mt-3 mb-3'}),
+            'description': forms.Textarea(attrs={'class':'mt-3 mb-3'}),
+            'content': forms.Textarea(attrs={'class':'mt-3 mb-3'}),
+            'category': forms.RadioSelect()
+        }
+
+
+class ArticleUpdateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.add_input(Submit('submit', 'Update', css_class='btn-success'))
+
+    class Meta:
+        model = Article
+        fields = ['name', 'description', 'content']
         widgets = {
             'name': forms.TextInput(attrs={'class':'mt-3 mb-3'}),
             'description': forms.Textarea(attrs={'class':'mt-3 mb-3'}),
