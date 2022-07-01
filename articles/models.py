@@ -20,6 +20,9 @@ class Article(models.Model):
     
     def get_update_url(self):
         return reverse('articles:update', kwargs={'slug':self.slug})
+    
+    def get_delete_url(self):
+        return reverse('articles:delete', kwargs={'id': self.id})
 
 def article_post_save(sender, instance, created, update_fields ,*args, **kwargs):
     if created:

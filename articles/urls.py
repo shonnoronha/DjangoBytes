@@ -6,6 +6,7 @@ from .views import (
     detail_view,
     hx_detail_view,
     update_view,
+    delete_view,
 )
 
 app_name = 'articles'
@@ -15,5 +16,6 @@ urlpatterns = [
     path('create/', create_view, name='create'),
     path('detail/<slug:slug>/', detail_view, name='detail'),
     path('update/<slug:slug>/', update_view, name='update'),
+    path('delete/<int:id>/', delete_view, name='delete'),
     path('hx/detail/<slug:slug>/', hx_detail_view, name='hx-detail'),
 ]
