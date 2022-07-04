@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'articles',
     'crispy_forms',
     'django_htmx',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,5 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
 }
+
+LOGIN_URL = '/login/'

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/accounts/login.css' %}">
+{% endblock head %}
+
+{% block content %}
+    <form action="" method="post" class="login-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-outline-success s-btn" type="submit">Login</button>
+    </form>
+{% endblock content %}
