@@ -16,9 +16,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'articles:create' %}" style="color: black; font-size: 24px;">Create</a>
                 </li>
+                {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="color: black; font-size: 24px;">Pricing</a>
+                    <a class="nav-link" href="/logout" style="color: black; font-size: 24px;">Logout</a>
                 </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login" style="color: black; font-size: 24px;">Login</a>
+                </li>
+                {% endif %}
             </ul>
         </div>
 

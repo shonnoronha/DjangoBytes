@@ -7,7 +7,6 @@ from django.http import Http404, HttpResponse
 from .forms import ArticleForm, ArticleUpdateForm
 from .models import Article
 
-@login_required
 def home_view(request):
     qs = Article.objects.all()
     context = { 'articles': qs }
