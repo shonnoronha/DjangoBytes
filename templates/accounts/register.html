@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block head %}
+    <title>Register | Account</title>
+{% endblock head %}
+
+{% block content %}
+    <p class="fs-2 text-center">Register Today!!!</p>
+    <form action="" method="post" class="register-form">
+        {{ form|crispy }}
+        <button  class="btn btn-outline-success" type="submit">Register</button>
+    </form>
+{% endblock content %}
