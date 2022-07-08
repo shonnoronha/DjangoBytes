@@ -7,9 +7,16 @@
 {% endblock head %}
 
 {% block content %}
-    <p class="fs-2 text-center">Register Today!!!</p>
-    <form action="" method="post" class="register-form">
-        {{ form|crispy }}
-        <button  class="btn btn-outline-success" type="submit">Register</button>
-    </form>
+    {% if not request.user.is_authenticated %}
+    <div style="background-color: #5a5a5a;">
+        <p class="fs-2 text-center">Register Today!!!</p>
+        <form action="" method="post" class="register-form">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button  class="btn btn-outline-success" type="submit">Register</button>
+        </form>
+    </div>
+    {% else %}
+        <p class="text-center fs-1">You Already Have An Account!!!</p>
+    {% endif %}
 {% endblock content %}

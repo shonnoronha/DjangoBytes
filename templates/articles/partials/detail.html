@@ -6,19 +6,21 @@
 <p class="ps-3 ms-3 fs-3">Content : </p>
 <p class="ps-5 pe-5 m-3 fs-5">{{ article.content }}</p>
 
-<a href="{{ article.get_update_url }}">
-    <button type="button" class="ms-4 btn btn-outline-success" style="border-radius: 10px;">Update</button>
-</a>
+{% if request.user == article.author %}
+    <a href="{{ article.get_update_url }}">
+        <button type="button" class="ms-4 btn btn-outline-success" style="border-radius: 10px;">Update</button>
+    </a>
 
-<a
-    hx-post="{{ article.get_delete_url }}"
-    href="{{ article.get_delete_url }}"
-    hx-confirm="Confirm to delete {{ article.name | upper }}?"
-    hx-trigger="click"
-    hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'
->
-    <button type="button" class="ms-4 btn btn-outline-danger" style="border-radius: 10px;">Delete</button>
-</a>
+    <a
+        hx-post="{{ article.get_delete_url }}"
+        href="{{ article.get_delete_url }}"
+        hx-confirm="Confirm to delete {{ article.name | upper }}?"
+        hx-trigger="click"
+        hx-headers='{ "X-CSRFToken": "{{ csrf_token }}" }'
+    >
+        <button type="button" class="ms-4 btn btn-outline-danger" style="border-radius: 10px;">Delete</button>
+    </a>
+{% endif %}
 
 <hr>
 <p class="ps-3 fs-6">Last Edited : {{ article.date_edited|date:"l , dS F Y , h:i A [e]"}}</p> 

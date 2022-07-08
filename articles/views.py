@@ -48,6 +48,9 @@ def hx_detail_view(request, slug):
 @login_required
 def update_view(request, slug):
     instance = get_object_or_404(Article, slug=slug)
+    if instance.author != request.user:
+        messages.add_message(request, messages.ERROR, 'Something Went Wrong!!!')
+        return redirect(reverse('articles:home'))
     form = ArticleUpdateForm(instance=instance)
     if request.method == 'POST':
         form = ArticleUpdateForm(request.POST, instance=instance)
@@ -63,6 +66,9 @@ def update_view(request, slug):
 @login_required
 def delete_view(request,id):
     article = get_object_or_404(Article, id=id)
+    if article.author != request.user:
+        messages.add_message(request, messages.ERROR, 'Something Went Wrong!!!')
+        return redirect(reverse('articles:home'))
     if request.method == 'POST':
         article.delete()
         messages.add_message(request, messages.WARNING, 'Article Deleted!')
