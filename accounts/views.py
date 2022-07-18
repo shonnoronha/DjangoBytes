@@ -2,7 +2,9 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+
+from .forms import SignInForm
 
 def base_view(request):
     return redirect(reverse('articles:home'))
@@ -28,11 +30,13 @@ def logout_view(request):
     return render(request, 'accounts/logout.html')
 
 def register_view(request):
-    form = UserCreationForm()
+    form = SignInForm()
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignInForm(request.POST)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Account Created!!! Please Login!')
             return redirect(reverse('accounts:login'))
+        else:
+            messages.add_message(request, messages.ERROR, 'Something Went Wrong!')
     return render(request, 'accounts/register.html', { 'form': form })

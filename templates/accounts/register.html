@@ -4,19 +4,56 @@
 
 {% block head %}
     <title>Register | Account</title>
+    <link rel="stylesheet" href="{% static 'css/accounts/register.css' %}">
 {% endblock head %}
-
+    
+    
 {% block content %}
-    {% if not request.user.is_authenticated %}
-    <div style="background-color: #5a5a5a;">
-        <p class="fs-2 text-center">Register Today!!!</p>
-        <form action="" method="post" class="register-form">
+{% if not request.user.is_authenticated %}
+    <div class="container">
+
+        <h1 class="heading">Sign Up!</h1>
+        <p class="form-info">Please fill in this form to create an account.</p>
+        <hr>
+
+        <form action="" method="post">
             {% csrf_token %}
-            {{ form|crispy }}
-            <button  class="btn btn-outline-success" type="submit">Register</button>
+            <label for="username"><b>Username</b></label>
+            {{ form.username }}
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                    <p class="error-text"><small><b>{{ error }}</b></small></p>
+                {% endfor %}
+            {% endif %}
+
+            <label for="email"><b>Email</b></label>
+            {{ form.email }}
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <p class="error-text"><small><b>{{ error }}</b></small></p>
+                {% endfor %}
+            {% endif %}
+            
+            <label for="username"><b>Password</b></label>
+            {{ form.password1 }}
+            {% if form.password1.errors %}
+                {% for error in form.password1.errors %}
+                    <p class="error-text"><small><b>{{ error }}</b></small></p>
+                {% endfor %}
+            {% endif %}
+
+            <label for="username"><b>Repeat Password</b></label>
+            {{ form.password2 }}
+            {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                    <p class="error-text"><small><b>{{ error }}</b></small></p>
+                {% endfor %}
+            {% endif %}
+
+            <button type="submit" class="submit-btn">Sign In</button>
         </form>
     </div>
-    {% else %}
-        <p class="text-center fs-1">You Already Have An Account!!!</p>
-    {% endif %}
+{% else %}
+    <p class="text-center fs-1">You Already Have An Account!!!</p>
+{% endif %}
 {% endblock content %}
