@@ -10,7 +10,8 @@ class ArticleAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form , change):
         update_fields = []
-        if form.initial['name'] != form.cleaned_data['name']:
-            update_fields.append('name')
+        if form.initial:
+            if form.initial['name'] != form.cleaned_data['name']:
+                update_fields.append('name')
         obj.save(update_fields=update_fields)
         super().save_model(request, obj, form, change)

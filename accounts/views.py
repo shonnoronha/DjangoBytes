@@ -14,6 +14,10 @@ def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
+            user = form.get_user()
+            if not user.is_email_verified:
+                messages.add_message(request, messages.ERROR, f'Please Verify Your Email Sent To `{user.email}`')
+                return render(request, 'accounts/verify.html')
             login(request, form.get_user())
             messages.add_message(request, messages.SUCCESS, 'Logged In Scuccessfully!')
             return redirect(request.GET.get('next') or reverse('articles:home'))
@@ -35,8 +39,9 @@ def register_view(request):
         form = SignInForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.add_message(request, messages.SUCCESS, 'Account Created!!! Please Login!')
+            user_email = form.cleaned_data['email']
+            messages.add_message(request, messages.SUCCESS, f'Verify Email! Email Sent To {user_email}')
             return redirect(reverse('accounts:login'))
         else:
-            messages.add_message(request, messages.ERROR, 'Something Went Wrong!')
+            messages.add_message(request, messages.ERROR, 'Please Check The Error Below')
     return render(request, 'accounts/register.html', { 'form': form })
