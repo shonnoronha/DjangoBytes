@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +31,6 @@ SECRET_KEY = 'django-insecure-)coto=53ia1#s^k+pcxma%j1bwifoymj^a7v)@p3)uz)-b!(-t
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '7526-2402-3a80-1ee0-7237-dc87-f88b-9df9-4730.ngrok.io',
     'localhost',
 ]
 
@@ -148,3 +151,11 @@ MESSAGE_TAGS = {
 LOGIN_URL = '/login/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+# email config
+EMAIL_FROM_USER = env('EMAIL_FROM_USER')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_FROM_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
