@@ -7,6 +7,7 @@ from django.utils.safestring import mark_safe
 
 from .forms import ArticleForm, ArticleUpdateForm
 from .models import Article
+from helpers.decorators import verification_required
 
 @login_required
 def home_view(request):
@@ -17,6 +18,7 @@ def home_view(request):
     return render(request, 'articles/home.html', context)
 
 @login_required
+@verification_required
 def create_view(request):
     form = ArticleForm()
     if request.method == 'POST':
@@ -33,12 +35,14 @@ def create_view(request):
     return render(request, 'articles/create.html', context)
 
 @login_required
+@verification_required
 def detail_view(request, slug):
     hx_request_url = reverse('articles:hx-detail', kwargs={'slug':slug})
     context = { 'hx_request_url' : hx_request_url }
     return render(request, 'articles/detail.html', context)
 
 @login_required
+@verification_required
 def hx_detail_view(request, slug):
     if not request.htmx:
         return Http404
@@ -50,6 +54,7 @@ def hx_detail_view(request, slug):
     return render(request, 'articles/partials/detail.html', context)
 
 @login_required
+@verification_required
 def update_view(request, slug):
     instance = get_object_or_404(Article, slug=slug)
     if instance.author != request.user:
@@ -68,6 +73,7 @@ def update_view(request, slug):
     return render(request, 'articles/update.html', context)
 
 @login_required
+@verification_required
 def delete_view(request,id):
     article = get_object_or_404(Article, id=id)
     if article.author != request.user:

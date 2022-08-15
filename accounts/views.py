@@ -79,7 +79,7 @@ def activate_user(request, uidb64, token):
         user.is_email_verified = True
         user.save()
         messages.add_message(request, messages.SUCCESS, 'Your Email Was Successfully Verified!You can Login Now!!!')
-        return redirect(reverse('accounts:login'))
+        return redirect(reverse('accounts:home'))
     
     messages.add_message(request, messages.ERROR, 'Oops Something Went Wrong!!!')
     return redirect(reverse('accounts:login'))
