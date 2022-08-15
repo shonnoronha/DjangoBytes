@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Verify | Email</title>
+    <style>
+        h1{
+            margin-top: 10px;
+        }
+        form button{
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 25%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-top: 10px;
+            opacity: 0.9;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 20px;
+        }
+        form button:hover{
+            opacity: 1;
+            width: 10%;
+        }
+    </style>
+{% endblock head %}
+
+{% block content %}
+    {% if not request.user.is_email_verified %}
+        <h1 class="text-center">Request Verification</h1>
+        <form action="." method="POST" class="text-center">
+            {% csrf_token %}
+            <button type="submit">Request</button>
+        </form>
+    {% else %}
+        <h1 class="text-center">Your Email Is Already Verified!!!</h1>
+        <small><p class="text-center">{{ request.user.email }}</p></small>
+    {% endif %}
+{% endblock content %}

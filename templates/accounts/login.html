@@ -13,7 +13,11 @@
             <p class="fs-3 pt-4">Already Logged In! Want to <a href="/logout/">Logout?</a></p>
         </div>
     {% else %}
-        <p class="fs-2 text-center pt-2">Login!</p>
+        {% if 'next' in request.GET %}
+            <p class="fs-2 text-center pt-2">Please Login To Continue!</p>
+        {% else %}
+            <p class="fs-2 text-center pt-2">Login!</p>
+        {% endif %}
         <form action="" method="post" class="login-form">
             {% csrf_token %}
             {{ form|crispy }}

@@ -3,11 +3,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.http import Http404, HttpResponse
+from django.utils.safestring import mark_safe
 
 from .forms import ArticleForm, ArticleUpdateForm
 from .models import Article
 
+@login_required
 def home_view(request):
+    if not request.user.is_email_verified:
+        messages.add_message(request,messages.ERROR, mark_safe(f"Please Verify Your Email!<small> <a href='/request-verification' style='color:#842029'>request verification?</a></small>"))
     qs = Article.objects.all()
     context = { 'articles': qs }
     return render(request, 'articles/home.html', context)

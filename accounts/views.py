@@ -9,6 +9,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_str, force_bytes
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 from .models import User
 from .forms import SignInForm
@@ -82,3 +83,12 @@ def activate_user(request, uidb64, token):
     
     messages.add_message(request, messages.ERROR, 'Oops Something Went Wrong!!!')
     return redirect(reverse('accounts:login'))
+
+@login_required
+def request_verification(request):
+    user = request.user
+    if request.POST and (not user.is_email_verified):
+        send_activation_email(user, request)
+        messages.add_message(request, messages.SUCCESS, f'Email Successfully sent to {user.email}')
+        return redirect(reverse('accounts:home'))
+    return render(request, 'accounts/request-verification.html')
