@@ -6,6 +6,12 @@
 <p class="ps-3 ms-3 fs-3">Content : </p>
 <p class="ps-5 pe-5 m-3 fs-5">{{ article.content }}</p>
 
+{% if article.thumbnail %}
+    <div class="text-center">
+        <img src="{{ article.thumbnail.url }}" alt="thumbnail" class="img-thumbnail mt-5">
+    </div>
+{% endif %}
+
 {% if request.user == article.author %}
     <a href="{{ article.get_update_url }}">
         <button type="button" class="ms-4 btn btn-outline-success" style="border-radius: 10px;">Update</button>

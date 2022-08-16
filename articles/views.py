@@ -22,7 +22,7 @@ def home_view(request):
 def create_view(request):
     form = ArticleForm()
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
@@ -62,7 +62,7 @@ def update_view(request, slug):
         return redirect(reverse('articles:home'))
     form = ArticleUpdateForm(instance=instance)
     if request.method == 'POST':
-        form = ArticleUpdateForm(request.POST, instance=instance)
+        form = ArticleUpdateForm(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             messages.add_message(request, messages.SUCCESS, 'Article Updated Succesfully!')
