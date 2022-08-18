@@ -1,21 +1,14 @@
-# TODOS
-- [ ] User Auth using Email link
-- [ ] Time Limiting Between Email Verification
-- [ ] Option For Resending Verify Email
-- [ ] Custom 404 page
-- [ ] Custom Auth Decorator (for login)
-- [ ] Admin Customisation
-- [ ] Heroku Deployment
-## Article
-- name 
-- author
-- description
-- content
-- date_published
-- slug
-- category
+# ✅TODOS✅
+- [x] User Auth using Email link
+- [x] Time Limiting Between Email Verification (captcha)
+- [x] Option For Resending Verify Email
+- [x] Custom Auth Decorator (for login)
 
-## User
-- email
-- username
-- password
+# 🔮Future of this project🔮
+- [ ] Custom 404 page
+- [ ] Add HTMX To Email Page
+- [ ] Refactor Routes
+- [ ] Add Profile page
+- [ ] Heroku Deployment
+- [ ] Admin Customisation
+- [ ] Make Docker Accessible (digitalocean app)
