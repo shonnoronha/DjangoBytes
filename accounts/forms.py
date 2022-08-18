@@ -1,5 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
-# from django.contrib.auth.models import User
+from django import forms
+from snowpenguin.django.recaptcha3.fields import ReCaptchaField
+
 from accounts.models import User
 from typing import Any
 
@@ -15,3 +17,6 @@ class SignInForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+    
+class CaptchaForm(forms.Form):
+    captcha = ReCaptchaField()

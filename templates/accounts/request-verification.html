@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load recaptcha3 %}
 
 {% block head %}
     <title>Verify | Email</title>
@@ -24,6 +25,8 @@
             width: 10%;
         }
     </style>
+    {% recaptcha_init %}
+    {% recaptcha_ready action_name='homepage' %}
 {% endblock head %}
 
 {% block content %}
@@ -31,6 +34,7 @@
         <h1 class="text-center">Request Verification</h1>
         <form action="." method="POST" class="text-center">
             {% csrf_token %}
+            {{ form }}
             <button type="submit">Request</button>
         </form>
     {% else %}

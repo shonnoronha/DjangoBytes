@@ -12,8 +12,9 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 from .models import User
-from .forms import SignInForm
+from .forms import SignInForm, CaptchaForm
 from .utils import generate_token
+from requests import post
 
 def send_activation_email(user, request):
     current_site = get_current_site(request)
@@ -86,9 +87,19 @@ def activate_user(request, uidb64, token):
 
 @login_required
 def request_verification(request):
+    form = CaptchaForm()
     user = request.user
     if request.POST and (not user.is_email_verified):
         send_activation_email(user, request)
+        form = CaptchaForm(request.POST)
+        if form.is_valid():
+            # captcha middleware validation not working
+            data = {
+                'response': form.cleaned_data['captcha'],
+                'secret': settings.RECAPTCHA_PRIVATE_KEY
+            }
+            response = post('https://www.google.com/recaptcha/api/siteverify', data=data)
+            result = response.json()
         messages.add_message(request, messages.SUCCESS, f'Email Successfully sent to {user.email}')
         return redirect(reverse('accounts:home'))
-    return render(request, 'accounts/request-verification.html')
+    return render(request, 'accounts/request-verification.html', { 'form' : form })
