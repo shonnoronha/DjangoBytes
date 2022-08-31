@@ -12,9 +12,20 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 from .models import User
-from .forms import SignInForm, CaptchaForm
+from .forms import SignInForm
 from .utils import generate_token
 from requests import post
+import threading
+
+
+class EmailThread(threading.Thread):
+
+    def __init__(self, email:EmailMessage):
+        self.email = email
+        threading.Thread.__init__(self)
+    
+    def run(self):
+        self.email.send()
 
 def send_activation_email(user, request):
     current_site = get_current_site(request)
@@ -28,7 +39,7 @@ def send_activation_email(user, request):
     email_body = render_to_string('accounts/activate.html', context)
 
     email = EmailMessage(subject=email_subject,body=email_body,from_email=settings.EMAIL_FROM_USER, to=[user.email])
-    email.send()
+    EmailThread(email).start()
 
 def base_view(request):
     return redirect(reverse('articles:home'))
@@ -79,7 +90,7 @@ def activate_user(request, uidb64, token):
     if user and generate_token.check_token(user, token):
         user.is_email_verified = True
         user.save()
-        messages.add_message(request, messages.SUCCESS, 'Your Email Was Successfully Verified!You can Login Now!!!')
+        messages.add_message(request, messages.SUCCESS, 'Your Email Was Successfully Verified!')
         return redirect(reverse('accounts:home'))
     
     messages.add_message(request, messages.ERROR, 'Oops Something Went Wrong!!!')
@@ -87,19 +98,9 @@ def activate_user(request, uidb64, token):
 
 @login_required
 def request_verification(request):
-    form = CaptchaForm()
     user = request.user
     if request.POST and (not user.is_email_verified):
         send_activation_email(user, request)
-        form = CaptchaForm(request.POST)
-        if form.is_valid():
-            # captcha middleware validation not working
-            data = {
-                'response': form.cleaned_data['captcha'],
-                'secret': settings.RECAPTCHA_PRIVATE_KEY
-            }
-            response = post('https://www.google.com/recaptcha/api/siteverify', data=data)
-            result = response.json()
         messages.add_message(request, messages.SUCCESS, f'Email Successfully sent to {user.email}')
         return redirect(reverse('accounts:home'))
-    return render(request, 'accounts/request-verification.html', { 'form' : form })
+    return render(request, 'accounts/request-verification.html')

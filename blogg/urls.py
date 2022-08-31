@@ -9,5 +9,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
 ]
 
+handler404 = "helpers.views.handle_not_found"
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
